@@ -1,0 +1,81 @@
+syntax="proto3";
+
+package com.university.userservice.grpc.user;
+option java_multiple_files = true;
+option java_package = "com.university.userservice.grpc.user";
+
+message UserRequest {
+  string userId = 1;
+}
+
+message UserResponse {
+  string fullName = 1;
+  string imgUrl = 2;
+  string type = 3;
+}
+
+message WorkExperience {
+  string start_date = 1;
+  string end_date = 2;
+  string department_name = 3;
+  string description = 4;
+}
+
+message WorkExperiences {
+  repeated WorkExperience workExperiences = 1;
+}
+
+message EmptyMessage {
+}
+
+message UserRequestWithDir {
+  string userId = 1;
+  string directionTitle = 2;
+}
+
+service UserGrpcService {
+  rpc getUserById(UserRequest) returns (UserResponse);
+
+  rpc getWorkExperiencesById(UserRequest) returns (WorkExperiences);
+
+  rpc setEnrolleeStatus(UserRequestWithDir) returns (EmptyMessage);
+
+  rpc setStudentStatus(UserRequest) returns (EmptyMessage);
+
+  rpc setEmployeeStatus(UserRequest) returns (EmptyMessage);
+}
+
+message Group {
+  string title = 1;
+  repeated Student students = 2;
+}
+
+message Student {
+  string id = 1;
+  string fullName = 2;
+  string imgUrl = 3;
+}
+
+message RequestGroupsByDirection {
+  string directionTitle = 1;
+}
+
+message ResponseGroups {
+  repeated Group groups = 1;
+}
+
+message RequestStudentsByGroup {
+  string directionTitle = 1;
+  string groupTitle = 2;
+}
+
+message ResponseStudentsByGroupAndDirection {
+  repeated Student students = 1;
+}
+
+service GroupService {
+  rpc getGroupsByDirection(RequestGroupsByDirection) returns (ResponseGroups);
+
+  rpc getStudentsByGroupAndDirection(RequestStudentsByGroup) returns (ResponseStudentsByGroupAndDirection);
+}
+

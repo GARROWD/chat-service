@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRESDB_URL:localhost:5432/chat}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: true
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+
+  security:
+    cors:
+      allowed-origins:
+        - "https://sovcomstudents.ru"
+        - "http://sovcomstudents.ru"
+        - "http://*.sovcomstudents.ru"
+        - "https://*.sovcomstudents.ru"
+        - "http://localhost:3000"
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${ISSUER:http://authserver:9000}
+
+springdoc:
+  api-docs:
+    path: /api/docs/doc
+  swagger-ui:
+    path: /api/docs/doc-ui
+
+server:
+  port: ${PORT:8080}
+
+grpc:
+  client:
+    users:
+      address: ${USERS_ADDR:userservice:7082}
+
+  port: ${GRPC_PORT:9090}
