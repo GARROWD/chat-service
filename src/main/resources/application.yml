@@ -29,9 +29,9 @@ spring:
 
 springdoc:
   api-docs:
-    path: /api/docs/doc
+    path: /docs/doc
   swagger-ui:
-    path: /api/docs/doc-ui
+    path: /docs/doc-ui
 
 server:
   port: ${PORT:8080}
